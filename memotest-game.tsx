@@ -55,7 +55,7 @@ export default function Component() {
   const [gameFailed, setGameFailed] = useState(false)
 
   // Initialize game
-  const initializeGame = (newTimeLimit = 120) => {
+  const initializeGame = (newTimeLimit = 30) => {
     const imageIds = Array.from({ length: 8 }, (_, i) => i + 1)
     const cardPairs = [...imageIds, ...imageIds]
 
