@@ -165,11 +165,12 @@ export default function Component() {
   }, [matchedPairs])
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100">
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gradient-to-br from-[#0B2558] to-black">
       <div className="w-full max-w-2xl">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">Rosental</h1>
+          {/* <h1 className="text-4xl font-bold text-gray-800 mb-2">Rosental</h1> */}
+          <img src="https://www.rosental.com/wp-content/uploads/2023/08/rosental.png" alt="" />
           <p className="text-gray-600">¡Encuentra todos los pares iguales!</p>
         </div>
 
@@ -191,7 +192,7 @@ export default function Component() {
           </div>
           <Button onClick={() => initializeGame(timeLimit)} variant="outline" size="sm" className="gap-2">
             <RotateCcw className="w-4 h-4" />
-            Reset/Start
+            Reset
           </Button>
         </div>
 
