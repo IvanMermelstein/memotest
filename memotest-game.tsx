@@ -32,8 +32,8 @@ const getCardEmoji = (imageId: number): string => {
 }
 
 const getCardLabel = (imageId: number): string => {
-  const labels = ["HEART", "STAR", "TREE", "SUN", "GEM", "FLOWER", "FIRE", "WATER"]
-  return labels[imageId - 1] || "HEART"
+  const labels = ["CORAZÓN", "ESTRELLA", "ÁRBOL", "SOL", "GEMA", "FLOR", "FUEGO", "AGUA"]
+  return labels[imageId - 1] || "CORAZÓN"
 }
 
 const formatTime = (seconds: number): string => {
