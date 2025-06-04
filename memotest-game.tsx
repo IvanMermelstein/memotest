@@ -128,8 +128,8 @@ export default function Component() {
       <div className="w-full max-w-2xl">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">Memory Game</h1>
-          <p className="text-gray-600">Find all matching pairs!</p>
+          <h1 className="text-4xl font-bold text-gray-800 mb-2">Rosental Memotest</h1>
+          <p className="text-gray-600">¡Encuentra todos los pares iguales!</p>
         </div>
 
         {/* Game Stats */}
