@@ -36,6 +36,12 @@ const getCardLabel = (imageId: number): string => {
   return labels[imageId - 1] || "HEART"
 }
 
+const formatTime = (seconds: number): string => {
+  const mins = Math.floor(seconds / 60)
+  const secs = seconds % 60
+  return `${mins}:${secs.toString().padStart(2, "0")}`
+}
+
 export default function Component() {
   const [cards, setCards] = useState<GameCard[]>([])
   const [flippedCards, setFlippedCards] = useState<number[]>([])
@@ -43,9 +49,13 @@ export default function Component() {
   const [moves, setMoves] = useState(0)
   const [gameCompleted, setGameCompleted] = useState(false)
   const [isChecking, setIsChecking] = useState(false)
+  const [timeLeft, setTimeLeft] = useState(30) // 2 minutes default
+  const [timeLimit, setTimeLimit] = useState(30)
+  const [gameStarted, setGameStarted] = useState(false)
+  const [gameFailed, setGameFailed] = useState(false)
 
   // Initialize game
-  const initializeGame = () => {
+  const initializeGame = (newTimeLimit = 120) => {
     const imageIds = Array.from({ length: 8 }, (_, i) => i + 1)
     const cardPairs = [...imageIds, ...imageIds]
 
@@ -63,7 +73,11 @@ export default function Component() {
     setMatchedPairs(0)
     setMoves(0)
     setGameCompleted(false)
+    setGameFailed(false)
     setIsChecking(false)
+    setTimeLimit(newTimeLimit)
+    setTimeLeft(newTimeLimit)
+    setGameStarted(false)
   }
 
   // Initialize game on component mount
@@ -71,9 +85,36 @@ export default function Component() {
     initializeGame()
   }, [])
 
+  // Timer effect
+  useEffect(() => {
+    let interval: NodeJS.Timeout | null = null
+
+    if (gameStarted && timeLeft > 0 && !gameCompleted && !gameFailed) {
+      interval = setInterval(() => {
+        setTimeLeft((prev) => {
+          if (prev <= 1) {
+            setGameFailed(true)
+            setGameStarted(false)
+            return 0
+          }
+          return prev - 1
+        })
+      }, 1000)
+    }
+
+    return () => {
+      if (interval) clearInterval(interval)
+    }
+  }, [gameStarted, timeLeft, gameCompleted, gameFailed])
+
   // Handle card click
   const handleCardClick = (cardId: number) => {
-    if (isChecking || flippedCards.length >= 2) return
+    if (isChecking || flippedCards.length >= 2 || gameFailed) return
+
+    // Start timer on first card click
+    if (!gameStarted) {
+      setGameStarted(true)
+    }
 
     const card = cards.find((c) => c.id === cardId)
     if (!card || card.isFlipped || card.isMatched) return
@@ -139,10 +180,16 @@ export default function Component() {
             <div className="text-sm text-gray-600">Movimientos</div>
           </div>
           <div className="text-center">
+            <div className={`text-2xl font-bold ${timeLeft <= 30 ? "text-red-600" : "text-orange-600"}`}>
+              {formatTime(timeLeft)}
+            </div>
+            <div className="text-sm text-gray-600">Tiempo</div>
+          </div>
+          <div className="text-center">
             <div className="text-2xl font-bold text-green-600">{matchedPairs}/8</div>
             <div className="text-sm text-gray-600">Pares</div>
           </div>
-          <Button onClick={initializeGame} variant="outline" size="sm" className="gap-2">
+          <Button onClick={() => initializeGame(timeLimit)} variant="outline" size="sm" className="gap-2">
             <RotateCcw className="w-4 h-4" />
             Reset/Start
           </Button>
@@ -185,11 +232,26 @@ export default function Component() {
         {gameCompleted && (
           <div className="text-center p-6 bg-white rounded-xl shadow-lg border-2 border-green-200">
             <Trophy className="w-16 h-16 text-yellow-500 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-green-600 mb-2">Congratulations! 🎉</h2>
-            <p className="text-gray-600 mb-4">You completed the game in {moves} moves!</p>
-            <Button onClick={initializeGame} className="gap-2">
+            <h2 className="text-2xl font-bold text-green-600 mb-2">Felicitaciones! 🎉</h2>
+            <p className="text-gray-600 mb-4">Completaste el juego en {moves} movimientos!</p>
+            <Button onClick={() => initializeGame(timeLimit)} className="gap-2">
               <RotateCcw className="w-4 h-4" />
               Play Again
+            </Button>
+          </div>
+        )}
+
+        {/* Game Failed Modal */}
+        {gameFailed && (
+          <div className="text-center p-6 bg-white rounded-xl shadow-lg border-2 border-red-200">
+            <div className="w-16 h-16 text-red-500 mx-auto mb-4 text-6xl">⏰</div>
+            <h2 className="text-2xl font-bold text-red-600 mb-2">¡Tiempo Agotado! ⏱️</h2>
+            <p className="text-gray-600 mb-4">
+              Se acabó el tiempo. Encontraste {matchedPairs} de 8 pares en {moves} movimientos.
+            </p>
+            <Button onClick={() => initializeGame(timeLimit)} className="gap-2 bg-red-600 hover:bg-red-700">
+              <RotateCcw className="w-4 h-4" />
+              Intentar de Nuevo
             </Button>
           </div>
         )}
