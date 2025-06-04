@@ -136,11 +136,11 @@ export default function Component() {
         <div className="flex justify-between items-center mb-6 px-4">
           <div className="text-center">
             <div className="text-2xl font-bold text-blue-600">{moves}</div>
-            <div className="text-sm text-gray-600">Moves</div>
+            <div className="text-sm text-gray-600">Movimientos</div>
           </div>
           <div className="text-center">
             <div className="text-2xl font-bold text-green-600">{matchedPairs}/8</div>
-            <div className="text-sm text-gray-600">Pairs</div>
+            <div className="text-sm text-gray-600">Pares</div>
           </div>
           <Button onClick={initializeGame} variant="outline" size="sm" className="gap-2">
             <RotateCcw className="w-4 h-4" />
