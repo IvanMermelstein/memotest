@@ -144,7 +144,7 @@ export default function Component() {
           </div>
           <Button onClick={initializeGame} variant="outline" size="sm" className="gap-2">
             <RotateCcw className="w-4 h-4" />
-            Reset
+            Reset!
           </Button>
         </div>
 
