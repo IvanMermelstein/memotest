@@ -5,6 +5,15 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { RotateCcw, Trophy } from "lucide-react"
 import Image from 'next/image'
+import arboria from '@/public/logo-arboria.jpg'
+import ciudad from '@/public/logo-ciudad.jpg'
+import clash from '@/public/logo-clash.jpg'
+import datic from '@/public/logo-datic.jpg'
+import firmia from '@/public/logo-firmia.jpg'
+import locativa from '@/public/logo-locativa.jpg'
+import rosental from '@/public/logo-rosental.jpg'
+import vida from '@/public/logo-vida.jpg'
+
 
 interface GameCard {
   id: number
@@ -14,16 +23,7 @@ interface GameCard {
 }
 
 const getCardImageSrc = (imageId: number): string => {
-  const images = [
-    '/logo-arboria.jpg',
-    '/logo-ciudad.jpg',
-    '/logo-clash.jpg',
-    '/logo-datic.jpg',
-    '/logo-firmia.jpeg',
-    '/logo-locativa.jpg',
-    '/logo-rosental.jpg',
-    '/logo-vida.jpg',
-  ]
+  const images = [arboria, ciudad, clash, datic, firmia, locativa, rosental, vida]
   return images[imageId - 1] || images[0]
 }
 
