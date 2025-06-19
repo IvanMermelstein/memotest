@@ -26,9 +26,18 @@ const getCardColor = (imageId: number): string => {
   return colors[imageId - 1] || colors[0]
 }
 
-const getCardEmoji = (imageId: number): string => {
-  const emojis = ["❤️", "⭐", "🌳", "☀️", "💎", "🌸", "🔥", "💧"]
-  return emojis[imageId - 1] || "❤️"
+const getCardImageSrc = (imageId: number): string => {
+  const images = [
+    '/logo-arboria.jpg',
+    '/logo-ciudad.jpg',
+    '/logo-clash.jpg',
+    '/logo-datic.jpg',
+    '/logo-firmia.jpeg',
+    '/logo-locativa.jpg',
+    '/logo-rosental.jpg',
+    '/logo-vida.jpg',
+  ]
+  return images[imageId - 1] || images[0]
 }
 
 const getCardLabel = (imageId: number): string => {
@@ -169,9 +178,9 @@ export default function Component() {
       <div className="w-full max-w-2xl">
         {/* Header */}
         <div className="text-center mb-8">
-          {/* <h1 className="text-4xl font-bold text-gray-800 mb-2">Rosental</h1> */}
-          <img src="https://www.rosental.com/wp-content/uploads/2023/08/rosental.png" alt="" />
-          <p className="text-gray-100">¡Encuentra todos los pares iguales!</p>
+          <h1 className="text-4xl font-bold text-gray-100 mb-2">Rosen-test</h1>
+          {/* <img className="mb-2" src="https://www.rosental.com/wp-content/uploads/2023/08/rosental.png" alt="" /> */}
+          <p className="text-gray-100">¡Encontrá todos los pares iguales!</p>
         </div>
 
         {/* Game Stats */}
@@ -211,12 +220,16 @@ export default function Component() {
               <div className="w-full h-full flex items-center justify-center p-2">
                 {card.isFlipped || card.isMatched ? (
                   <div
-                    className={`w-full h-full rounded-md flex items-center justify-center text-white font-bold text-lg ${getCardColor(card.imageId)}`}
+                    className={`
+                      w-full h-full rounded-md flex items-center justify-center
+                      ${getCardColor(card.imageId)}
+                    `}
                   >
-                    <div className="text-center">
-                      <div className="text-3xl mb-1">{getCardEmoji(card.imageId)}</div>
-                      <div className="text-xs opacity-80">{getCardLabel(card.imageId)}</div>
-                    </div>
+                    <img
+                      src={getCardImageSrc(card.imageId)}
+                      alt={getCardLabel(card.imageId)}
+                      className="w-12 h-12"
+                    />
                   </div>
                 ) : (
                   <div className="w-full h-full bg-gradient-to-br from-slate-400 to-slate-600 rounded-md flex items-center justify-center relative overflow-hidden">
