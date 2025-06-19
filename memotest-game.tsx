@@ -13,20 +13,6 @@ interface GameCard {
   isMatched: boolean
 }
 
-const getCardColor = (imageId: number): string => {
-  const colors = [
-    "bg-gradient-to-br from-red-400 to-red-600", // 1 - Heart
-    "bg-gradient-to-br from-blue-400 to-blue-600", // 2 - Star
-    "bg-gradient-to-br from-green-400 to-green-600", // 3 - Tree
-    "bg-gradient-to-br from-yellow-400 to-yellow-600", // 4 - Sun
-    "bg-gradient-to-br from-purple-400 to-purple-600", // 5 - Gem
-    "bg-gradient-to-br from-pink-400 to-pink-600", // 6 - Flower
-    "bg-gradient-to-br from-orange-400 to-orange-600", // 7 - Fire
-    "bg-gradient-to-br from-teal-400 to-teal-600", // 8 - Water
-  ]
-  return colors[imageId - 1] || colors[0]
-}
-
 const getCardImageSrc = (imageId: number): string => {
   const images = [
     '/logo-arboria.jpg',
@@ -39,11 +25,6 @@ const getCardImageSrc = (imageId: number): string => {
     '/logo-vida.jpg',
   ]
   return images[imageId - 1] || images[0]
-}
-
-const getCardLabel = (imageId: number): string => {
-  const labels = ["CORAZÓN", "ESTRELLA", "ÁRBOL", "SOL", "GEMA", "FLOR", "FUEGO", "AGUA"]
-  return labels[imageId - 1] || "CORAZÓN"
 }
 
 const formatTime = (seconds: number): string => {
@@ -223,12 +204,10 @@ export default function Component() {
                   <div
                     className={`
                       w-full h-full rounded-md flex items-center justify-center
-                      ${getCardColor(card.imageId)}
                     `}
                   >
                     <Image
                       src={getCardImageSrc(card.imageId)}
-                      alt={getCardLabel(card.imageId)}
                       width={125.5}
                       height={125.5}
                       priority={false}
