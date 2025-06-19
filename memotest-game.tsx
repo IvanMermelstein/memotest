@@ -210,7 +210,7 @@ export default function Component() {
                       src={getCardImageSrc(card.imageId)}
                       width={125.5}
                       height={125.5}
-                      priority={false}
+                      priority={true}
                     />
                   </div>
                 ) : (
