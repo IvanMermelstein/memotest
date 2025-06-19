@@ -40,13 +40,13 @@ export default function Component() {
   const [moves, setMoves] = useState(0)
   const [gameCompleted, setGameCompleted] = useState(false)
   const [isChecking, setIsChecking] = useState(false)
-  const [timeLeft, setTimeLeft] = useState(90)
-  const [timeLimit, setTimeLimit] = useState(90)
+  const [timeLeft, setTimeLeft] = useState(60)
+  const [timeLimit, setTimeLimit] = useState(60)
   const [gameStarted, setGameStarted] = useState(false)
   const [gameFailed, setGameFailed] = useState(false)
 
   // Initialize game
-  const initializeGame = (newTimeLimit = 90) => {
+  const initializeGame = (newTimeLimit = 60) => {
     const imageIds = Array.from({ length: 8 }, (_, i) => i + 1)
     const cardPairs = [...imageIds, ...imageIds]
 
@@ -160,7 +160,7 @@ export default function Component() {
       <div className="w-full max-w-2xl">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-100 mb-2">Rosen-test</h1>
+          <h1 className="text-4xl text-gray-100 mb-2">Rosen-test</h1>
           {/* <img className="mb-2" src="https://www.rosental.com/wp-content/uploads/2023/08/rosental.png" alt="" /> */}
           <p className="text-gray-100">¡Encontrá todos los pares iguales!</p>
         </div>
@@ -229,10 +229,10 @@ export default function Component() {
           <div className="text-center p-6 bg-white rounded-xl shadow-lg border-2 border-green-200">
             <Trophy className="w-16 h-16 text-yellow-500 mx-auto mb-4" />
             <h2 className="text-2xl font-bold text-green-600 mb-2">Felicitaciones! 🎉</h2>
-            <p className="text-gray-100 mb-4">Completaste el juego en {moves} movimientos!</p>
+            <p className="text-gray-800 mb-4">Completaste el juego en {moves} movimientos!</p>
             <Button onClick={() => initializeGame(timeLimit)} className="gap-2">
               <RotateCcw className="w-4 h-4" />
-              Play Again
+              Intentar de Nuevo
             </Button>
           </div>
         )}
