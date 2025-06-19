@@ -40,13 +40,13 @@ export default function Component() {
   const [moves, setMoves] = useState(0)
   const [gameCompleted, setGameCompleted] = useState(false)
   const [isChecking, setIsChecking] = useState(false)
-  const [timeLeft, setTimeLeft] = useState(30) // 2 minutes default
-  const [timeLimit, setTimeLimit] = useState(30)
+  const [timeLeft, setTimeLeft] = useState(90)
+  const [timeLimit, setTimeLimit] = useState(90)
   const [gameStarted, setGameStarted] = useState(false)
   const [gameFailed, setGameFailed] = useState(false)
 
   // Initialize game
-  const initializeGame = (newTimeLimit = 30) => {
+  const initializeGame = (newTimeLimit = 90) => {
     const imageIds = Array.from({ length: 8 }, (_, i) => i + 1)
     const cardPairs = [...imageIds, ...imageIds]
 
@@ -242,7 +242,7 @@ export default function Component() {
           <div className="text-center p-6 bg-white rounded-xl shadow-lg border-2 border-red-200">
             <div className="w-16 h-16 text-red-500 mx-auto mb-4 text-6xl">⏰</div>
             <h2 className="text-2xl font-bold text-red-600 mb-2">¡Tiempo Agotado! ⏱️</h2>
-            <p className="text-gray-100 mb-4">
+            <p className="text-gray-800 mb-4">
               Se acabó el tiempo. Encontraste {matchedPairs} de 8 pares en {moves} movimientos.
             </p>
             <Button onClick={() => initializeGame(timeLimit)} className="gap-2 bg-red-600 hover:bg-red-700">
