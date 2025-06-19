@@ -229,8 +229,8 @@ export default function Component() {
                     <Image
                       src={getCardImageSrc(card.imageId)}
                       alt={getCardLabel(card.imageId)}
-                      width={48}
-                      height={48}
+                      width={125.5}
+                      height={125.5}
                       priority={false}
                     />
                   </div>
