@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { RotateCcw, Trophy } from "lucide-react"
+import Image from 'next/image'
 
 interface GameCard {
   id: number
@@ -225,10 +226,12 @@ export default function Component() {
                       ${getCardColor(card.imageId)}
                     `}
                   >
-                    <img
+                    <Image
                       src={getCardImageSrc(card.imageId)}
                       alt={getCardLabel(card.imageId)}
-                      className="w-12 h-12"
+                      width={48}
+                      height={48}
+                      priority={false}
                     />
                   </div>
                 ) : (
