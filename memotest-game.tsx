@@ -13,6 +13,7 @@ import firmia from '@/public/logo-firmia.jpeg'
 import locativa from '@/public/logo-locativa.jpg'
 import rosental from '@/public/logo-rosental.jpg'
 import vida from '@/public/logo-vida.jpg'
+import cabeceraRosental from '@/public/logo-cabecera-rosental.png'
 
 
 interface GameCard {
@@ -160,8 +161,8 @@ export default function Component() {
       <div className="w-full max-w-2xl">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl text-gray-100 mb-2">Rosen-test</h1>
-          {/* <img className="mb-2" src="https://www.rosental.com/wp-content/uploads/2023/08/rosental.png" alt="" /> */}
+          {/* <h1 className="text-4xl text-gray-100 mb-2">Rosen-test</h1> */}
+          <img className="mb-2" src={cabeceraRosental} alt="" />
           <p className="text-gray-100">¡Encontrá todos los pares iguales!</p>
         </div>
 
