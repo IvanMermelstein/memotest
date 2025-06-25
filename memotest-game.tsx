@@ -160,9 +160,14 @@ export default function Component() {
     <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gradient-to-br from-[#0B2558] to-black">
       <div className="w-full max-w-2xl">
         {/* Header */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-8 items-center justify-center">
           {/* <h1 className="text-4xl text-gray-100 mb-2">Rosen-test</h1> */}
-          <img className="mb-2" src={cabeceraRosental} alt="" />
+          <Image
+            src={cabeceraRosental}
+            width={400}
+            height={180}
+            priority={true}
+          />
           <p className="text-gray-100">¡Encontrá todos los pares iguales!</p>
         </div>
 
