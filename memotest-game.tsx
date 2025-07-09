@@ -14,6 +14,9 @@ import locativa from '@/public/logo-locativa.jpg'
 import rosental from '@/public/logo-rosental.jpg'
 import vida from '@/public/logo-vida.jpg'
 import cabeceraRosental from '@/public/logo-cabecera-rosental.png'
+import { useRouter } from "next/navigation"
+import { NameModal } from "./components/NameModal"
+import Link from 'next/link'
 
 
 interface GameCard {
@@ -45,6 +48,8 @@ export default function Component() {
   const [timeLimit, setTimeLimit] = useState(60)
   const [gameStarted, setGameStarted] = useState(false)
   const [gameFailed, setGameFailed] = useState(false)
+  const [showNameModal, setShowNameModal] = useState(false)
+  const router = useRouter()
 
   // Initialize game
   const initializeGame = (newTimeLimit = 60) => {
@@ -77,6 +82,12 @@ export default function Component() {
     initializeGame()
   }, [])
 
+  useEffect(() => {
+    if (gameCompleted) {
+      setShowNameModal(true)
+    }
+  }, [gameCompleted])
+
   // Timer effect
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null
@@ -98,6 +109,15 @@ export default function Component() {
       if (interval) clearInterval(interval)
     }
   }, [gameStarted, timeLeft, gameCompleted, gameFailed])
+
+  const handleSaveName = async (firstName: string, lastName: string) => {
+    await fetch('/api/scores', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ firstName, lastName, moves, time: timeLimit - timeLeft })
+    })
+    setShowNameModal(false)
+  }
 
   // Handle card click
   const handleCardClick = (cardId: number) => {
@@ -191,6 +211,12 @@ export default function Component() {
             <RotateCcw className="w-4 h-4" />
             Reset
           </Button>
+          <Link href="/ranking">
+            <Button variant="outline" size="sm" className="gap-2">
+              <Trophy className="w-4 h-4" />
+              Ranking
+            </Button>
+          </Link>
         </div>
 
         {/* Game Board */}
@@ -258,6 +284,7 @@ export default function Component() {
           </div>
         )}
       </div>
+      <NameModal open={showNameModal} onSubmit={handleSaveName} />
     </div>
   )
 }
